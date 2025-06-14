@@ -22,7 +22,7 @@ public abstract class AbstractExecuter {
 
 			// 接続
 			Connection conn = DriverManager.getConnection(
-				"jdbc:mysql://localhost/StaffManagement?useSSL=false&characterEncoding=utf8&useServerPrepStmts=true", 
+				"jdbc:mysql://localhost/assignment?useSSL=false&characterEncoding=utf8&useServerPrepStmts=true", 
 				"root", ""
 				);		 
 

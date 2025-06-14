@@ -29,9 +29,11 @@ public class StaffManagementSystem{
             System.out.println("4:従業員名前検索");
             System.out.println("5:勤務情報検索");
             System.out.println("6:給与明細表示");
-            System.out.println("7:終了");
+            System.out.println("7:終了\n");
+            System.out.print("番号を入力してください:");
 
             String line=scanner.nextLine();
+            System.out.print("\n");
             switch(line) {
                 case "1":
                     e1.queryAndShow();

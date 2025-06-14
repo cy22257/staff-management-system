@@ -8,7 +8,7 @@
 import java.util.*;
 import java.sql.*;
 
-public class PrintAllemployeeInformation extends AbstractExecuter {
+public class PrintAllEmployeeInformation extends AbstractExecuter {
     private Scanner scanner = new Scanner(System.in);
 
     @Override

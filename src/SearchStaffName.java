@@ -1,13 +1,23 @@
 /**
- *]‹Æˆõ‚Ì–¼‘OŒŸõ
- *@author cy22272 ­‘O—Sl
+ * å¾“æ¥­å“¡ã®åå‰æ¤œç´¢
+ * @author cy22272 å°‘å‰ç¥äºº
  */
 
 import java.util.*;
 import java.sql.*;
+import java.io.*;
 
 public class SearchStaffName extends AbstractExecuter {
-    private Scanner scanner = new Scanner(System.in);
+    // ã‚³ãƒãƒ³ãƒ‰ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆã§ã‚‚æ–‡å­—åŒ–ã‘ã—ãªã„ã‚ˆã†Shift_JISå‡ºåŠ›ã«å¤‰æ›´
+    static {
+        try {
+            System.setOut(new PrintStream(System.out, true, "MS932"));
+        } catch (UnsupportedEncodingException e) {
+            System.err.println("ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°è¨­å®šã«å¤±æ•—ã—ã¾ã—ãŸ: " + e);
+        }
+    }
+
+    private Scanner scanner = new Scanner(System.in, "MS932");
     private String searchName;
 
     @Override
@@ -17,7 +27,7 @@ public class SearchStaffName extends AbstractExecuter {
 
     @Override
     public void preQuery() {
-        System.out.println("ŒŸõ‚·‚é]‹Æˆõ‚Ì–¼‘O‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢i•”•ªˆê’vjF");
+        System.out.print("æ¤œç´¢ã™ã‚‹å¾“æ¥­å“¡ã®åå‰ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„ï¼ˆéƒ¨åˆ†ä¸€è‡´ï¼‰ï¼š");
         searchName = scanner.nextLine();
     }
 
@@ -29,17 +39,17 @@ public class SearchStaffName extends AbstractExecuter {
     @Override
     public void showResult(ResultSet r) {
         try {
-            System.out.printf("%-10s\t%-15s\t%-15s\t%-20s\t%-10s\t%-10s\n", 
+            System.out.printf("%-10s\t%-15s\t%-15s\t%-20s\t%-10s\t%-10s\n",
                 "staffID", "staffName", "phoneNumber", "address", "birthDate", "fare");
 
             while (r.next()) {
-                System.out.printf("%-10s\t%-15s\t%-15s\t%-20s\t%-10s\t%-10d\n",
-                        r.getString("staffID"),
-                        r.getString("staffName"),
-                        r.getString("phoneNumber"),
-                        r.getString("address"),
-                        r.getString("birthDate"),
-                        r.getInt("fare")
+                System.out.printf("%-10s\t%-10s\t%-15s\t%-20s\t%-10s\t%-10d\n",
+                    r.getString("staffID"),
+                    r.getString("staffName"),
+                    r.getString("phoneNumber"),
+                    r.getString("address"),
+                    r.getString("birthDate"),
+                    r.getInt("fare")
                 );
             }
         } catch (SQLException se) {

@@ -32,7 +32,7 @@
 ## フォルダ構成
 
 ```
-StaffManagementSystem/
+staff-management-system/
 ├── src/                          # Javaソースコード
 │   ├── StaffManagementSystem.java
 │   ├── AbstractExecuter.java
@@ -62,7 +62,7 @@ StaffManagementSystem/
 
 ### セットアップ手順
 
-1. 任意のディレクトリに `StaffManagementSystem` を配置。
+1. 任意のディレクトリに `staff-management-system` を配置。
 
 2. MySQLサーバーの起動（インストール場所に応じてパスを変更）:
 
@@ -79,7 +79,7 @@ StaffManagementSystem/
 ```sql
 CREATE DATABASE assignment CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE assignment;
-SOURCE "[絶対パス]/StaffManagementSystem/sql/cy22257.sql";
+SOURCE "[絶対パス]/sql/cy22257.sql";
 ```
 
 4. Javaファイルのコンパイル：
