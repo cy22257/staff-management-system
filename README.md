@@ -47,6 +47,8 @@ StaffManagementSystem/
 ├── lib/
 │   └── mysql-connector-j-8.4.0.jar  # JDBCドライバ（MySQL）
 ├── mysql-8.3.0-winx64/           # MySQL本体
+├── doc/
+│   └── 勤怠管理システム_仕様書
 └── README.md
 ```
 
