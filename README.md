@@ -1,38 +1,39 @@
+
 # 勤怠管理システム（Staff Management System）
 
-このリポジトリは、アルバイトや社員の勤怠・給与情報を管理するシステム「勤怠管理システム」のソースコードおよび関連ファイルを含みます。
+このリポジトリは、JavaおよびMySQLを用いて開発された「勤怠管理システム」のソースコードおよび関連ファイルを含みます。
 
 ## 概要
 
-本システムは、以下のような機能を備えたデータベース連携型のJavaアプリケーションです：
+本システムは、アルバイトおよび社員の勤務情報や給与情報、所属店舗情報をデータベースと連携して一元管理できるJavaアプリケーションです。
 
 ## 実装機能一覧
 
-以下の6つの機能を提供します。`StaffManagementSystem` クラスを実行すると、対話形式でこれらの機能を選択できます。
+本アプリケーションは以下の6機能を提供し、`StaffManagementSystem` クラスを実行することでコンソール形式で操作が可能です。
 
-1. **全アルバイト情報表示**  
-   パート・アルバイト従業員の全情報（氏名、連絡先、住所、生年月日、交通費など）を一覧表示します。
+1. **全アルバイト情報表示** (`PrintAllPTJInformation.java`)  
+   アルバイトの基本情報（名前、住所、電話番号、生年月日、交通費、時給など）を表示。
 
-2. **全社員情報表示**  
-   正社員の全情報（上記と同様）を一覧表示します。
+2. **全社員情報表示** (`PrintAllEmployeeInformation.java`)  
+   社員の基本情報と給与（固定給）を表示。
 
-3. **全店舗情報表示**  
-   店舗の基本情報（店舗名、住所、電話番号など）を一覧表示します。
+3. **全店舗情報表示** (`PrintAllShopInformation.java`)  
+   全店舗のID、名称、住所、電話番号などを一覧で表示。
 
-4. **従業員名前検索**  
-   入力された文字列に一致する従業員の名前で部分一致検索し、該当情報を表示します。
+4. **従業員名前検索** (`SearchStaffName.java`)  
+   入力された文字列を部分一致で検索し、該当する従業員情報を表示。
 
-5. **勤務情報検索**  
-   従業員IDをもとに、その従業員の勤務記録（勤務日、開始時刻、終了時刻など）を表示します。
+5. **勤務情報検索** (`SearchWorkData.java`)  
+   指定された従業員IDに紐づく勤務記録（出退勤時間、勤務日、休憩時間）を表示。
 
-6. **給与明細表示**  
-   従業員IDをもとに、勤務時間と時給から給与を計算し、給与明細として表示します。
+6. **給与明細表示** (`Payment.java`, `PaymentAlter.java`)  
+   勤務時間と時給または固定給を基に給与を計算し、明細として出力。
 
 ## フォルダ構成
 
 ```
 StaffManagementSystem/
-├── src/                          # Javaソースファイル
+├── src/                          # Javaソースコード
 │   ├── StaffManagementSystem.java
 │   ├── AbstractExecuter.java
 │   ├── PrintAllPTJInformation.java
@@ -43,66 +44,76 @@ StaffManagementSystem/
 │   ├── Payment.java
 │   └── PaymentAlter.java
 ├── sql/
-│   └── cy22257.sql               # データベース構築用SQL
+│   └── cy22257.sql               # データベース構築用SQLスクリプト
 ├── lib/
-│   └── mysql-connector-j-8.4.0.jar  # JDBCドライバ（MySQL）
-├── mysql-8.3.0-winx64/           # MySQL本体
-├── doc/
-│   └── 勤怠管理システム_仕様書
+│   └── mysql-connector-j-8.4.0.jar  # JDBCドライバ
+├── .gitignore
 └── README.md
 ```
 
-## 実行環境
+## 環境構築と実行手順
 
-- OS: Windows 10/11
-- JDK: 17以上
-- MySQL: 8.3.0
-- コマンドプロンプト使用（PowerShellは非推奨）
+### 対応環境
 
-## セットアップ手順（初回のみ）
+- OS: Windows 10 / 11
+- Java: JDK 17以上
+- MySQL: 8.3.0（インストールはユーザーが別途行う）
+- JDBCドライバ: mysql-connector-j-8.4.0.jar
 
-1. 任意のディレクトリにプロジェクトフォルダ（`StaffManagementSystem`）を配置。
+### セットアップ手順
 
-2. MySQLサーバーを起動する（初回必須）  
-   以下の手順で、MySQLのサーバー（`mysqld`）を起動します：
+1. 任意のディレクトリに `StaffManagementSystem` を配置。
 
-   ```cmd
-   cd StaffManagementSystem/mysql-8.3.0-winx64/bin
-   mysqld
-   ```
+2. MySQLサーバーの起動（インストール場所に応じてパスを変更）:
 
-   ※黒い画面で止まったままになりますが、それで正常です。閉じずに次の手順へ進んでください。
+```bash
+"[絶対パス]/mysql-8.3.0-winx64/bin/mysqld"
+```
 
-3. 新しいコマンドプロンプトをもう一つ開き、以下を実行してMySQLに接続：
+3. MySQLクライアントを起動し、SQLを投入：
 
-   ```cmd
-   cd StaffManagementSystem/mysql-8.3.0-winx64/bin
-   mysql -u root
-   ```
+```bash
+"[絶対パス]/mysql-8.3.0-winx64/bin/mysql" -u root
+```
 
-4. データベースとテーブルを作成：
+```sql
+CREATE DATABASE assignment CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE assignment;
+SOURCE "[絶対パス]/StaffManagementSystem/sql/cy22257.sql";
+```
 
-   ```sql
-   CREATE DATABASE assignment CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-   USE assignment;
-   SOURCE ../../sql/cy22257.sql;
-   ```
+4. Javaファイルのコンパイル：
 
-5. Javaソースをコンパイル：
+```bash
+javac -cp ".;lib/mysql-connector-j-8.4.0.jar" src/*.java
+```
 
-   ```cmd
-   cd C:/Users/yourname/Desktop/StaffManagementSystem
-   javac -cp ".;lib/mysql-connector-j-8.4.0.jar" src/*.java
-   ```
+5. アプリケーションの実行：
 
-6. メインプログラムを実行：
+```bash
+java -cp ".;lib/mysql-connector-j-8.4.0.jar;src" StaffManagementSystem
+```
 
-   ```cmd
-   java -cp ".;lib/mysql-connector-j-8.4.0.jar;src" StaffManagementSystem
-   ```
+### 文字化け対策
+
+文字化けが発生した場合は以下の対策を講じてください：
+
+```bash
+chcp 65001
+```
+
+または Java 実行時に次のオプションを付けてください：
+
+```bash
+java -Dfile.encoding=UTF-8 -cp ".;lib/mysql-connector-j-8.4.0.jar;src" StaffManagementSystem
+```
 
 ## 注意点
 
-- 文字化けする場合、コマンドプロンプトで `chcp 65001` を実行するか、ファイルエンコーディング設定を `UTF-8` に統一してください。
-- JDBCドライバは `lib` に配置済みであり、特別な設定は不要です。
-- 初回実行時にDB作成と初期データ投入を行ってください。
+- `mysql-8.3.0-winx64` フォルダはファイルサイズ制限により GitHub 上では共有できません。MySQL の公式サイトより必要なバージョンをダウンロードしてください。
+- `.gitignore` により `mysql-8.3.0-winx64/` ディレクトリは除外されています。
+- SQL スクリプト (`cy22257.sql`) はプロジェクトに含まれているため、DB初期化は可能です。
+
+---
+
+本READMEにより、任意の場所にダウンロードしたプロジェクトでも正しくセットアップ・動作確認が可能です。
